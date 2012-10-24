@@ -365,7 +365,7 @@ let g:clang_hl_errors = 1
 let g:clang_complete_copen = 1
 
 " Enable snippets
-let g:clang_snippets = 1
+let g:clang_snippets = 0
 let g:clang_snippets_engine='clang_complete'
 " let g:clang_snippets_engine='ultisnips'
 let g:clang_conceal_snippets=0
@@ -398,7 +398,7 @@ let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
 
-let g:neocomplcache_auto_completion_start_length = 3
+let g:neocomplcache_auto_completion_start_length = 4
 let g:neocomplcache_manual_completion_start_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 

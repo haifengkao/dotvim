@@ -13,16 +13,14 @@ snippet nsdi
 snippet nsmd
     NSMutableDictionary*${1}
 snippet s
-    self.${0}
+    self${0}
 snippet pro
     @property (${1:nonatomic}, ${2:strong}) ${3:id} ${4:var};
-snippet syn
-    @synthesize ${1:property}=_$1;${0}
 snippet block
     ${1:void} (^${2:func})($3:void) = ^($3){
         ${0}
     }   
-snippet lambda
+snippet la
     ^($1:void){
         ${0}
     }
@@ -70,8 +68,8 @@ snippet forj
 	}
 
 snippet for
-	for (NSInteger ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
-		${4}
+	for (${1:id} ${2:obj} in ${3:$2s}) {
+		${4:$2}
 	}
 # Custom For Loop
 snippet forr
@@ -187,3 +185,39 @@ abbr ClassImplementation
 	}
 	@end
     
+snippet ut
+    #import <GHUnitIOS/GHUnit.h> 
+    #import "$1.h"
+    @interface $1Test : GHTestCase
+    @end
+
+    @implementation ${1:`Filename()`}Test
+
+    - (BOOL)shouldRunOnMainThread
+    {
+        // By default NO, but if you have a UI test or test dependent on running on the main thread return YES.
+        // Also an async test that calls back on the main thread, you'll probably want to return YES.
+        return NO;
+    }
+
+    - (void)setUpClass {
+        // Run at start of all tests in the class
+
+    }
+
+    - (void)tearDownClass {
+        // Run at end of all tests in the class
+    }
+
+    - (void)setUp {
+        // Run before each test method
+
+    }
+
+    - (void)tearDown {
+        // Run after each test method
+
+    }
+
+    ${0}
+    @end
