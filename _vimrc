@@ -151,6 +151,78 @@ noremap Y y$
 map <MiddleMouse> <Nop>
 imap <MiddleMouse> <Nop>
 
+"tabbed editing, not working
+"map <C-t> <Esc>:tabnew<CR> 
+
+"save all files
+inoremap <silent> <C-s> <ESC>:wa<CR> 
+nnoremap <silent> <C-s> :wa<CR>
+
+"find the occurence in all files
+"nnoremap <Leader>f :noautocmd vimgrep/\<<C-r><C-w>\>/j **/*.[ch] **/*.[ch]pp **/*.java **/*.pl **/*.rb **/*.py **/*.cs<CR>:cw<CR>
+nnoremap <Leader>F :noautocmd vimgrep/\c/j **/*.[ch] **/*.[ch]pp **/*.tex **/*.java **/*.pl **/*.rb **/*.py **/*.cs **/*.m <left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left><left>
+
+"Keystroke Savor for Substituting all occurrences of the word under the cursor
+"without question
+nnoremap <Leader>s :%s/\<<C-r><C-w>\>//gI<Left><Left><Left>
+vmap <Leader>s y:execute "%s/".escape(@",'[]/')."//gI"<Left><Left><Left><Left>
+"with question
+nnoremap <Leader>S :%s/\<<C-r><C-w>\>//gcI<Left><Left><Left><Left>
+vmap <leader>S y:execute "%s/".escape(@",'[]/')."//gcI"<left><left><left><left><Left>
+
+"Then you can use Ctrl-NumPad+ to increment numbers as others do with <C-A> 
+noremap <C-kPlus> <C-A>
+noremap <C-kMinus> <C-X>
+"failed try
+"noremap <C-Char-61> <C-X>
+"noremap <C-=> <C-A>
+"noremap <C--> <C-X>
+
+"for easy page down and page up, failed
+"noremap <Space> <C-F> conflicted with FuzzyFinder
+"noremap <BS> <C-B>
+
+" ============= Doxygen ===========
+"with @retval end
+nnoremap <Leader>d :let g:DoxygenToolkit_returnTag="@retval "<CR>:Dox<CR>
+"with @return end
+nnoremap <Leader>D :let g:DoxygenToolkit_returnTag="@return "<CR>:Dox<CR>
+
+" ============= Python ====================
+"disable cscope for python
+au FileType python set nocst
+
+"save all files for python, and rebuild tag file with ctags (TODO: switch to GNU Global when it supports python)
+au FileType python inoremap <silent> <C-s> <ESC> :wa<CR>:cs kill 0<CR>:!start cmd /c  cs.py<CR>:!start cmd /c ctags -R --python-kinds=-i .<CR>:Sleep 1000<CR>:cs add cscope.out<CR>
+au FileType python nnoremap <silent> <C-s> :wa<CR>:cs kill 0<CR>:!start cmd /c cs.py<CR>:!start cmd /c ctags -R --python-kinds=-i .<CR>:Sleep 1000<CR>:cs add cscope.out<CR>
+
+" ============= FuzzyFinder ===============
+"can I set default to open tabs??
+"break the original forward functionality
+"nmap ff :FuzzyFinderFile<CR> 
+"nmap fw ::FuzzyFinderTag<CR>
+nmap <Leader>g :FufFile<CR> 
+nmap <Leader>f :FufTag<CR>
+" MruFile is disabled by default
+nmap <Leader>r :FufMruFile<CR>
+inoremap <C-M-F10> <ESC> :FufTag<CR>
+nmap <C-M-F10> :FufTag<CR>
+inoremap <C-M-F11> <ESC> :FufFile<CR>
+nmap <C-M-F11> :FufFile<CR>
+"open the file in the current buffer
+let g:fuf_keyOpen = '<C-l>'
+"open the file in a new tab
+let g:fuf_keyOpenTabpage = '<CR>'
+
+" ============= ctags ===============
+"for ctag.vim
+"c-tag remap, jump to previous tag
+"noremap <C-[> <C-t> "breaks clang_complete
+"C-\ - Open the definition in a new tab, never use it
+"map <C-\> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+"A-] - Open the definition in a vertical split, never use it
+"map <A-]> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
 " ============= Omni-Completion ===========
 "now the complete will match case-insensitive words
 "set ignorecase 
