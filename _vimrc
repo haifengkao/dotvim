@@ -1,54 +1,42 @@
+" ============= Vundle ===========
 set nocompatible               " be iMproved
- filetype off                   " required!
+filetype off                   " required!
 
- set rtp+=~/.vim/bundle/vundle/
- call vundle#rc()
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
 
- " let Vundle manage Vundle
- " required! 
-  Bundle 'gmarik/vundle'
-  Bundle 'Shougo/neocomplcache'
- Bundle 'Shougo/neosnippet'
-  Bundle 'BreakPts'
-  Bundle 'genutils'
-  Bundle 'Rip-Rip/clang_complete'
-  Bundle 'osyo-manga/neocomplcache-clang_complete'
- "Bundle 'SirVer/ultisnips'
- Bundle 'qqshfox/objc_matchbracket'
+" let Vundle manage Vundle
+" required! 
+Bundle 'gmarik/vundle'
+Bundle 'Shougo/neocomplcache'
+Bundle 'Shougo/neosnippet'
+Bundle 'BreakPts'
+Bundle 'genutils'
+Bundle 'Rip-Rip/clang_complete'
+Bundle 'osyo-manga/neocomplcache-clang_complete'
+"Bundle 'SirVer/ultisnips'
+Bundle 'qqshfox/objc_matchbracket'
 
-   " vim-scripts repos
-  Bundle 'FuzzyFinder'
-  Bundle 'L9'
- Bundle 'EnhCommentify.vim'
- Bundle 'DoxygenToolkit.vim'
- Bundle 'a.vim'
- Bundle 'delimitMate.vim'
- Bundle 'repeat.vim'
- Bundle 'surround.vim'
- 
-" Bundle 'tpope/vim-fugitive'
- " My Bundles here:
- "
- " original repos on github
-" Bundle 'tpope/vim-fugitive'
  " vim-scripts repos
-" Bundle 'L9'
-" Bundle 'FuzzyFinder'
- " non github repos
-" Bundle 'git://git.wincent.com/command-t.git'
- " ...
+Bundle 'FuzzyFinder'
+Bundle 'L9'
+Bundle 'EnhCommentify.vim'
+Bundle 'DoxygenToolkit.vim'
+Bundle 'a.vim'
+Bundle 'delimitMate.vim'
+Bundle 'repeat.vim'
+Bundle 'surround.vim'
 
- filetype plugin indent on     " required!
- "
- " Brief help
- " :BundleList          - list configured bundles
- " :BundleInstall(!)    - install(update) bundles
- " :BundleSearch(!) foo - search(or refresh cache first) for foo
- " :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
- "
- " see :h vundle for more details or wiki for FAQ
- " NOTE: comments after Bundle command are not allowed..
-
+filetype plugin indent on     " required!
+"
+" Brief help
+" :BundleList          - list configured bundles
+" :BundleInstall(!)    - install(update) bundles
+" :BundleSearch(!) foo - search(or refresh cache first) for foo
+" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
+"
+" see :h vundle for more details or wiki for FAQ
+" NOTE: comments after Bundle command are not allowed..
 
 " ============= Common Settings ===========
 if has("vms")
@@ -64,13 +52,6 @@ set incsearch		" do incremental searching
 " For Win32 GUI: remove 't' flag from 'guioptions': no tearoff menu entries
 " let &guioptions = substitute(&guioptions, "t", "", "g")
 
-" Don't use Ex mode, use Q for formatting
-map Q gq
-
-" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
-" so that you can undo CTRL-U after inserting a line break.
-inoremap <C-U> <C-G>u<C-U>
-
 " In many terminal emulators the mouse works just fine, thus enable it.
 if has('mouse')
   set mouse=a
@@ -85,12 +66,6 @@ endif
 
 " Only do this part when compiled with support for autocommands.
 if has("autocmd")
-
-  " Enable file type detection.
-  " Use the default filetype settings, so that mail gets 'tw' set to 72,
-  " 'cindent' is on in C files, etc.
-  " Also load indent files, to automatically do language-dependent indenting.
-  filetype plugin indent on
 
   " Put these in an autocmd group, so that we can delete them easily.
   augroup vimrcEx
@@ -124,7 +99,6 @@ if !exists(":DiffOrig")
   command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 		  \ | wincmd p | diffthis
 endif
-"------------------------------vimrc_example-------------------------------
 
 color ayende
 set nu 	"enable line number
@@ -148,14 +122,9 @@ set expandtab "transform all tabs into spaces
 "go to command mode
 imap jj <Esc>
 
-"set confirm  "show confirm dialogs when there are errors 
-"Disable the backup file
-"set nobackup 
-"Disable swapfile, put everything in memory(will crash vim with big file)
-"set noswapfile
 " turn off annoying bell
-
 set vb
+
 " smartindent automatically inserts one extra level of indentation in some cases.
 set smartindent
 set undofile
@@ -177,9 +146,6 @@ nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>:nohl
 
 "If you like Y to work from the cursor to the end of line (which is more logical, but not Vi-compatible)
 noremap Y y$
-
-" restore the window
-"simalt ~r
 
 "disable mouse middle click(annoying when scrolling)
 map <MiddleMouse> <Nop>
@@ -206,14 +172,14 @@ imap <M-F9> <c-x><c-f>
 imap <C-M-F9> <c-x><c-l>
 
 function MyDefaultComplete()
-    call feedkeys("a\<c-x>\<c-o>")
-    "call feedkeys("a\<c-x>\<c-p>")
+"    call feedkeys("a\<c-x>\<c-o>")
+    call feedkeys("a\<c-x>\<c-p>")
 endfunction
 
 " ================ Ultisnips ==============
-"   let g:UltiSnipsExpandTrigger="<tab>"
-"   let g:UltiSnipsJumpForwardTrigger="<tab>"
-"   let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" let g:UltiSnipsExpandTrigger="<tab>"
+" let g:UltiSnipsJumpForwardTrigger="<tab>"
+" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 
 " ================ Clang Complete ================
 " Enable auto clang complete
@@ -240,13 +206,12 @@ let g:clang_user_options='|| exit 0'
 let g:clang_use_library = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
 
-" ------------------------------neocomplcache---------------------------------------
+" ================ Neocomplcache ================
 
 " Use neocomplcache.
 let g:neocomplcache_enable_at_startup = 1
 
-" Use neocomplcache & clang_complete !!! REQUIRED (Lono: doesn't seem to
-" change anything)
+" Use neocomplcache & clang_complete !!! REQUIRED (solve conflicts with clang)
 let g:neocomplcache_force_overwrite_completefunc=1
 
 " Select the first available completion in the popup
@@ -272,9 +237,9 @@ endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " snippets expand key
- imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
+imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
 imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
- smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
+smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
 inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
