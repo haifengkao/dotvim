@@ -8,7 +8,6 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
-Bundle 'Shougo/neocomplcache'
 Bundle 'Shougo/neosnippet'
 Bundle 'BreakPts'
 Bundle 'genutils'
@@ -16,6 +15,10 @@ Bundle 'Rip-Rip/clang_complete'
 Bundle 'osyo-manga/neocomplcache-clang_complete'
 "Bundle 'SirVer/ultisnips'
 Bundle 'qqshfox/objc_matchbracket'
+
+"Bundle 'Shougo/neocomplcache'
+"Use my own fork
+Bundle 'lono175/neocomplcache'
 
  " vim-scripts repos
 Bundle 'FuzzyFinder'
@@ -345,6 +348,11 @@ autocmd FileType objc set sw=4
 autocmd FileType objc set ts=4
 autocmd FileType objc set sts=4
 
+"open unit test file (TODO)
+"mvim need to be opened with mvim -p --remote-tab 
+autocmd FileType objc inoremap <C-M-F8> <ESC>:!mvim <C-R>=TestFile()<CR><CR>
+autocmd FileType objc nnoremap <C-M-F8> :!mvim <C-R>=TestFile()<CR><CR>
+
 " ================ Clang Complete ================
 " Enable auto clang complete
 let g:clang_complete_auto = 1
@@ -517,6 +525,28 @@ else
     endif
 endif
 
+
+" ================= Custom Functions ===============
+
+" get current filename
+function Filename()
+    return expand("%:t:r")
+endfunction
+
+" TODO: tmp solution
+function TestFile()
+    let f=Filename()
+    let pos=match(f, 'Test$')
+    echomsg pos
+    echomsg f
+    echomsg 'Test.m'
+    "pos should not be 0
+    if  pos <= 0
+        return '../GHUnitTest/'.f.'Test.m'
+    endif
+    let oriF = f[:pos - 1]
+    return '../1piece/'.oriF.'.m'
+endfunction
 
 "a sleep function which allows vim to wait for the other processes to finish
 com! -complete=command -nargs=+ Sleep call s:Sleep(<q-args>)
