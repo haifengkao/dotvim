@@ -1,0 +1,189 @@
+snippet nsa
+    NSArray*${1}
+snippet nss
+    NSString*${1}
+snippet nsi
+    NSInteger${1}
+snippet nsd
+    NSData*${1}
+snippet nsma
+    NSMutableArray*${1}
+snippet nsdi
+    NSDictionary*${1}
+snippet nsmd
+    NSMutableDictionary*${1}
+snippet s
+    self.${0}
+snippet pro
+    @property (${1:nonatomic}, ${2:strong}) ${3:id} ${4:var};
+snippet syn
+    @synthesize ${1:property}=_$1;${0}
+snippet block
+    ${1:void} (^${2:func})($3:void) = ^($3){
+        ${0}
+    }   
+snippet lambda
+    ^($1:void){
+        ${0}
+    }
+snippet a
+    NSAssert( ${1}, @"${2}");
+
+snippet b
+    BOOL${1}
+
+snippet nn
+	!= nil${1}
+
+snippet ne
+	!= ${1}
+
+snippet e
+	== ${1}
+
+snippet or
+	|| ${1}
+
+snippet and
+	&& ${1}
+
+snippet t
+	YES${1}
+
+snippet f
+	NO${1}
+
+snippet n
+	nil${1}
+
+snippet r
+	return ${1};
+
+snippet fori
+	for (NSInteger i = 0; i < ${1:count}; i++) {
+		${2}
+	}
+
+snippet forj
+	for (NSInteger j = 0; j < ${1:count}; j++) {
+		${2}
+	}
+
+snippet for
+	for (NSInteger ${2:i} = 0; $2 < ${1:count}; $2${3:++}) {
+		${4}
+	}
+# Custom For Loop
+snippet forr
+	for (${1:i} = ${2:0}; ${3:$1 < 10}; $1${4:++}) {
+		${5:}
+	}
+
+# If Condition
+snippet if
+	if (${1:/* condition */}) {
+		${2:}
+	}
+
+snippet el
+	else {
+		${1}
+	}
+
+# Tertiary conditional
+snippet te
+	${1:/* condition */} ? ${2:a} : ${3:b}
+
+# Do While Loop
+snippet do
+	do {
+		${2:}
+	} while (${1:/* condition */});
+
+# While Loop
+snippet wh
+	while (${1:/* condition */}) {
+		${2:}
+	}
+
+snippet Imp
+    #import <${1:Foundation/Foundation.h}>
+
+snippet imp
+    #import "${1:`Filename()`}.h"${0}
+
+snippet m
+abbr Method
+	- (${1:void})${2:method}
+	{
+    	${3}
+	}
+    
+snippet m1
+abbr Method
+	- (${1:void})${2:method}: (${3:id})${4:arg}
+	{
+    	${5}
+	}
+
+snippet m2
+abbr Method
+	- (${1:void})${2:method}: (${3:id})${4:arg}
+                  ${5:method}: (${6:id})${7:arg}
+	{
+    	${8}
+	}
+snippet M
+abbr Method
+    - (${1:void})${2:method}: (${3:id})${4:arg};
+
+
+snippet cm
+abbr ClassMethod
+	+ (${1:void})${2:method}: (${3:id})${4:arg}
+	{
+    	${5}
+	}
+snippet icm
+abbr InterfaceClassMethod
+    + (${1:void}) ${0:method};
+
+snippet cl
+abbr Class
+	@interface ${1:`Filename()`} : ${2:NSObject}
+	{
+	}
+	@end
+	
+	@implementation $1
+	- (id)init
+	{
+		if((self = [super init]))
+		{${0}
+		}
+		return self;
+	}
+	@end
+    
+
+snippet cli
+abbr ClassInterface
+	@interface ${1:`Filename()`} : ${2:NSObject}
+	{${3}
+	}
+	${0}
+	@end
+    
+
+snippet clm
+abbr ClassImplementation
+	@implementation ${1:`Filename()`}
+	- (id)init
+	{
+		if((self = [super init]))
+		{${0}
+		}
+		return self;
+	}
+	@end
+    

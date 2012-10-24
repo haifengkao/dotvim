@@ -432,6 +432,7 @@ autocmd FileType objc  set omnifunc=ClangComplete
 if has('win32') || has('win64') 
 else
     let g:neocomplcache_temporary_dir = "$HOME/.vim/tmp/neocomplcache"
+    let g:neosnippet#snippets_directory	= "$HOME/.vim/snippets"
 endif
 
 " ============= Cscope ============
