@@ -182,6 +182,48 @@ noremap <C-kMinus> <C-X>
 "noremap <Space> <C-F> conflicted with FuzzyFinder
 "noremap <BS> <C-B>
 
+" ============= A.vim ===========
+"for a.vim, insert mode, like tomato operation in vs2008
+"imap <silent> <A-o> <ESC>:AT<CR> 
+inoremap <Leader>t <ESC>:AT<CR>
+"for a.vim, normal mode, like tomato operation in vs2008
+nnoremap <Leader>t :AT<CR>
+"nnoremap <silent> <A-o> :AT<CR> 
+
+" ============= EnhancedCommentify ===========
+"EnhancedCommentify to comment source code, failed to map <C-/>, use autohotkey instead
+let g:EnhCommentifyRespectIndent = 'Yes'
+"If yes, you cannot type \c in insert mode, very annoying
+let g:EnhCommentifyBindInInsert='No'
+let g:EnhCommentifyFirstLineMode = 'Yes'
+
+" ============= C++ ===========
+"for visual studio plugin
+"save and compile the current file
+au FileType cpp imap <C-F7> <ESC>:wa<CR>\ic
+"save and compile and update ctags
+au FileType cpp nmap <C-F7> :wa<CR>\ic:!start cmd /c "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ."<CR> 
+"save and build the current file
+au FileType cpp imap <C-M-F12> <ESC>:wa<CR>\ib
+"save and build and update ctags
+au FileType cpp nmap <C-M-F12> :wa<CR>\ib:!start cmd /c "ctags -R --c++-kinds=+p --fields=+iaS --extra=+q ."<CR> 
+
+"let g:visual_studio_quickfix_height = 10
+"map <C-/> <Plug>VisualTraditional
+"map <C-h> <Plug>VisualTraditional
+
+"set errorformat=\ %#%f(%l)\ :\ %#%t%[A-z]%#\ %m "For QuickFix window to work on VS2008. Don't set it here, set it in VS2008 plugin
+
+" ============= C# ===========
+" Folding : http://vim.wikia.com/wiki/Syntax-based_folding, see comment by Ostrygen
+"au FileType cs set omnifunc=syntaxcomplete#Complete
+"au FileType cs let g:SuperTabDefaultCompletionType = "<c-x><c-i>"
+au FileType cs set foldmethod=marker
+au FileType cs set foldmarker={,}
+au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
+au FileType cs set foldlevelstart=99  
+
+
 " ============= Doxygen ===========
 "with @retval end
 nnoremap <Leader>d :let g:DoxygenToolkit_returnTag="@retval "<CR>:Dox<CR>
@@ -195,6 +237,8 @@ au FileType python set nocst
 "save all files for python, and rebuild tag file with ctags (TODO: switch to GNU Global when it supports python)
 au FileType python inoremap <silent> <C-s> <ESC> :wa<CR>:cs kill 0<CR>:!start cmd /c  cs.py<CR>:!start cmd /c ctags -R --python-kinds=-i .<CR>:Sleep 1000<CR>:cs add cscope.out<CR>
 au FileType python nnoremap <silent> <C-s> :wa<CR>:cs kill 0<CR>:!start cmd /c cs.py<CR>:!start cmd /c ctags -R --python-kinds=-i .<CR>:Sleep 1000<CR>:cs add cscope.out<CR>
+
+"au FileType python let g:pydiction_location = 'D:/ctags/python_diction/complete-dict'
 
 " ============= FuzzyFinder ===============
 "can I set default to open tabs??
@@ -252,6 +296,14 @@ endfunction
 " let g:UltiSnipsExpandTrigger="<tab>"
 " let g:UltiSnipsJumpForwardTrigger="<tab>"
 " let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+" ================ Objective-C ==============
+let filetype_m='objc'
+
+" Set proper indenting
+autocmd FileType objc set sw=4
+autocmd FileType objc set ts=4
+autocmd FileType objc set sts=4
 
 " ================ Clang Complete ================
 " Enable auto clang complete
