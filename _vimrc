@@ -223,12 +223,52 @@ au FileType cs set foldmarker={,}
 au FileType cs set foldtext=substitute(getline(v:foldstart),'{.*','{...}',)
 au FileType cs set foldlevelstart=99  
 
+" ============= Text =====================
+au BufRead,BufNewFile *.txt setfiletype text
+au FileType text set wrap linebreak textwidth=0
+"add spell check
+au FileType text setlocal spell spelllang=en
+
+" use Firefox Style browse
+"au FileType text nnoremap <Space> <C-F>
+"au FileType text nnoremap <BS> <C-B>
+
+" ============= AsciiDoc ========================
+au FileType asciidoc setlocal spell spelllang=en
+au FileType text set wrap linebreak textwidth=0
+" use Firefox Style browse
+au FileType asciidoc nnoremap <Space> <C-F>
+au FileType asciidoc nnoremap <BS> <C-B>
+"asciidoc.py --unsafe --backend=xhtml11 --conf-file=layout1.conf --attribute icons --attribute imagesdir="./images" -v index.txt
+
 
 " ============= Doxygen ===========
 "with @retval end
 nnoremap <Leader>d :let g:DoxygenToolkit_returnTag="@retval "<CR>:Dox<CR>
 "with @return end
 nnoremap <Leader>D :let g:DoxygenToolkit_returnTag="@return "<CR>:Dox<CR>
+
+" ============= Unicode Support ============
+"set fileencodings=utf-8,big5,euc-jp,gbk,euc-kr,utf-bom,iso8859-1
+"set fileencodings = ascii, gbk, ucs-bom,utf-8,ucs-2,ucs-le,sjis,big5,latin1
+set encoding=utf-8
+set fileencoding=utf-8
+set tenc=utf-8
+set fileencodings=ucs-bom,utf-8,SHIFT-JIS,cp936,gb18030,big5,euc-jp,euc-kr,latin1
+"set fileencodings=ascii,ucs-bom,utf-8,ucs-2,ucs-le,sjis,big5,latin1
+
+"fix Êä¼¸¸ö¡î¡ï¡õ¡öÊÔÊÔ¿´ display problem
+set ambiwidth=double
+
+"since now vim internal coding is UTF8, we need to delete original menu and
+"apply new coding of menu(utf-8). Otherwise, the menu cannot display
+"correctly. It set menu to CHINESE!!!
+"source $VIMRUNTIME/delmenu.vim
+"language messages zh_TW.utf-8
+
+
+" ============= DelimitMate ============
+au FileType cpp let b:delimitMate_matchpairs = "(:),[:]"
 
 " ============= Python ====================
 "disable cscope for python
@@ -385,6 +425,53 @@ if has('win32') || has('win64')
 else
     let g:neocomplcache_temporary_dir = "$HOME/.vim/tmp/neocomplcache"
 endif
+
+" ============= Cscope ============
+if has("cscope")
+  nmap <C-\>c :cs find c <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>d :cs find d <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>e :cs find e <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>f :cs find f <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-\>g :cs find g <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>i :cs find i <C-R>=expand("<cfile>")<CR><CR>
+  nmap <C-\>s :cs find s <C-R>=expand("<cword>")<CR><CR>
+  nmap <C-\>t :cs find t <C-R>=expand("<cword>")<CR><CR>
+  if filereadable("cscope.out")
+      cs add cscope.out
+  endif
+  "find all functions calling a certain function, usefull!!
+  map g<C-]> :cs find 3 <C-R>=expand("<cword>")<CR><CR>
+
+  "to find all occurrences of a particular C symbol
+  map g<C-\> :cs find 0 <C-R>=expand("<cword>")<CR><CR>
+
+endif
+
+" =============== Others ===================
+set diffexpr=MyDiff()
+function MyDiff()
+    let opt = '-a --binary '
+    if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+    if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+    let arg1 = v:fname_in
+    if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+    let arg2 = v:fname_new
+    if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+    let arg3 = v:fname_out
+    if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+    let eq = ''
+    if $VIMRUNTIME =~ ' '
+        if &sh =~ '\<cmd'
+            let cmd = '""' . $VIMRUNTIME . '\diff"'
+            let eq = '"'
+        else
+            let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+        endif
+    else
+        let cmd = $VIMRUNTIME . '\diff'
+    endif
+    silent execute '!' . cmd . ' ' . opt . arg0 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
 
 " =============== System Setting ============
 if has('win32') || has('win64') 
