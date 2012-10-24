@@ -354,7 +354,7 @@ let g:clang_complete_auto = 1
 let g:clang_hl_errors = 1
 
 " Automatically complete after ., ::, ->
-let g:clang_complete_copen = 0
+let g:clang_complete_copen = 1
 
 " Enable snippets
 let g:clang_snippets = 1
@@ -402,9 +402,9 @@ let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
 
 " snippets expand key
 imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
-imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+"imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
 smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
-inoremap <expr><c-e>     neocomplcache#complete_common_string()
+"inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
