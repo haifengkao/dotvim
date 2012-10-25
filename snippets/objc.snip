@@ -191,7 +191,7 @@ snippet ut
     @interface $1Test : GHTestCase
     @end
 
-    @implementation ${1:`Filename()`}Test
+    @implementation ${1:`TestFile()`}Test
 
     - (BOOL)shouldRunOnMainThread
     {

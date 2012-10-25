@@ -350,8 +350,8 @@ autocmd FileType objc set sts=4
 
 "open unit test file (TODO)
 "mvim need to be opened with mvim -p --remote-tab 
-autocmd FileType objc inoremap <C-M-F8> <ESC>:!mvim <C-R>=TestFile()<CR><CR>
-autocmd FileType objc nnoremap <C-M-F8> :!mvim <C-R>=TestFile()<CR><CR>
+autocmd FileType objc inoremap <C-M-F8> <ESC>:!mvim <C-R>=TestFilePath()<CR><CR>
+autocmd FileType objc nnoremap <C-M-F8> :!mvim <C-R>=TestFilePath()<CR><CR>
 
 " ================ Clang Complete ================
 " Enable auto clang complete
@@ -538,9 +538,17 @@ endfunction
 function TestFile()
     let f=Filename()
     let pos=match(f, 'Test$')
-    echomsg pos
-    echomsg f
-    echomsg 'Test.m'
+    "pos should not be 0
+    if  pos <= 0
+        return f.'Test'
+    endif
+    return f[:pos - 1]
+endfunction
+
+" TODO: tmp solution
+function TestFilePath()
+    let f=Filename()
+    let pos=match(f, 'Test$')
     "pos should not be 0
     if  pos <= 0
         return '../GHUnitTest/'.f.'Test.m'
