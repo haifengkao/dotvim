@@ -8,17 +8,25 @@ call vundle#rc()
 " let Vundle manage Vundle
 " required! 
 Bundle 'gmarik/vundle'
-Bundle 'Shougo/neosnippet'
+"Bundle 'Shougo/neosnippet'
 Bundle 'BreakPts'
 Bundle 'genutils'
 Bundle 'Rip-Rip/clang_complete'
-Bundle 'osyo-manga/neocomplcache-clang_complete'
-"Bundle 'SirVer/ultisnips'
+"Bundle 'osyo-manga/neocomplcache-clang_complete'
+Bundle 'SirVer/ultisnips'
 Bundle 'qqshfox/objc_matchbracket'
+Bundle 'lono175/supertab'
+"Bundle 'ervandew/supertab'
+
+"Snipmate 
+"Bundle "MarcWeber/vim-addon-mw-utils"
+"Bundle "tomtom/tlib_vim"
+"Bundle "honza/snipmate-snippets"
+"Bundle "garbas/vim-snipmate"
 
 "Bundle 'Shougo/neocomplcache'
 "Use my own fork
-Bundle 'lono175/neocomplcache'
+"Bundle 'lono175/neocomplcache'
 
  " vim-scripts repos
 Bundle 'FuzzyFinder'
@@ -141,8 +149,12 @@ set wildmode=longest,full       " Make :tabe matches longest common filename
 set shortmess=atI               " Avoid The 'Press ENTER or type command to continue' 
 
 "inserts the longest common text of all matches; and the menu will come up even if there's only one match
-set completeopt=longest,menuone
+set completeopt=menu,menuone
 "set completeopt=longest,menuone,preview
+"set completeopt=menu,longest
+
+ " Limit popup menu height
+ set pumheight=10
 
 "Here is how to emulate Emacs¡¦ transpose-words in Vim
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>:nohl<cr>
@@ -199,6 +211,15 @@ let g:EnhCommentifyRespectIndent = 'Yes'
 "If yes, you cannot type \c in insert mode, very annoying
 let g:EnhCommentifyBindInInsert='No'
 let g:EnhCommentifyFirstLineMode = 'Yes'
+
+function EnhCommentifyCallback(ft)
+if a:ft == 'objc'
+	let b:ECcommentOpen = '//'
+	let b:ECcommentClose = ''
+endif
+endfunction
+let g:EnhCommentifyCallbackExists = 'Yes'
+
 
 " ============= C++ ===========
 "for visual studio plugin
@@ -336,9 +357,10 @@ function MyDefaultComplete()
 endfunction
 
 " ================ Ultisnips ==============
-" let g:UltiSnipsExpandTrigger="<tab>"
-" let g:UltiSnipsJumpForwardTrigger="<tab>"
-" let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+
+let g:UltiSnipsExpandTrigger=""
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+"let g:UltiSnipsJumpBackwardTrigger=""
 
 " ================ Objective-C ==============
 let filetype_m='objc'
@@ -353,21 +375,26 @@ autocmd FileType objc set sts=4
 autocmd FileType objc inoremap <C-M-F8> <ESC>:!mvim <C-R>=TestFilePath()<CR><CR>
 autocmd FileType objc nnoremap <C-M-F8> :!mvim <C-R>=TestFilePath()<CR><CR>
 
+" ============= SuperTab =====================
+" SuperTab option for context aware completion
+let g:SuperTabDefaultCompletionType = "context"
+"let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
 " ================ Clang Complete ================
-" Enable auto clang complete
+" Automatically complete after ., ::, ->
 let g:clang_complete_auto = 1
 
 
 " Show clang errors in the quickfix window
-let g:clang_hl_errors = 1
-
-" Automatically complete after ., ::, ->
-let g:clang_complete_copen = 1
+let g:clang_complete_copen = 0
+let g:clang_hl_errors = 0
 
 " Enable snippets
-let g:clang_snippets = 0
-let g:clang_snippets_engine='clang_complete'
-" let g:clang_snippets_engine='ultisnips'
+let g:clang_snippets = 1
+"let g:clang_snippets_engine='clang_complete'
+ let g:clang_snippets_engine='ultisnips'
+ "let g:clang_snippets_engine='snipmate'
 let g:clang_conceal_snippets=0
 
 let g:clang_periodic_quickfix = 0
@@ -398,7 +425,7 @@ let g:neocomplcache_enable_camel_case_completion = 1
 " Use underbar completion.
 let g:neocomplcache_enable_underbar_completion = 1
 
-let g:neocomplcache_auto_completion_start_length = 4
+let g:neocomplcache_auto_completion_start_length = 3
 let g:neocomplcache_manual_completion_start_length = 3
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
@@ -406,27 +433,37 @@ let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 if !exists('g:neocomplcache_keyword_patterns')
     let g:neocomplcache_keyword_patterns = {}
 endif
+if !exists('g:neocomplcache_force_omni_patterns')
+    let g:neocomplcache_force_omni_patterns = {}
+endif
 let g:neocomplcache_keyword_patterns['default'] = '\h\w*'
+"\'\h\w\+\|[^.[:digit:] *\t]\%(\.\|->\)')
+"let g:neocomplcache_force_omni_patterns.objc =
+      "\ '[^.[:digit:] *\t]\%(\.\|->\)'
+let g:neocomplcache_force_omni_patterns.objc =
+  \ '\h\w\{2,\}\|[^.[:digit:] *\t]\%(\.\|->\)'
+
+"old settings
+"imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
+"inoremap <expr><c-e>     neocomplcache#complete_common_string()
 
 " snippets expand key
-imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
-"imap  <silent><expr><tab>  neocomplcache#sources#snippets_complete#expandable() ? "\<plug>(neocomplcache_snippets_expand)" : (pumvisible() ? "\<c-e>" : "\<tab>")
-smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
-"inoremap <expr><c-e>     neocomplcache#complete_common_string()
+"imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>" 
+"smap  <tab>  <right><plug>(neocomplcache_snippets_jump)
 
 " Recommended key-mappings.
 " <CR>: close popup and save indent.
-inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
 
 " <C-h>, <BS>: close popup and delete backword char.
-inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType objc  set omnifunc=ClangComplete
 
 if has('win32') || has('win64') 
