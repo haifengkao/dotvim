@@ -149,12 +149,12 @@ set wildmode=longest,full       " Make :tabe matches longest common filename
 set shortmess=atI               " Avoid The 'Press ENTER or type command to continue' 
 
 "inserts the longest common text of all matches; and the menu will come up even if there's only one match
-set completeopt=menu,menuone
+set completeopt=longest,menu,menuone
 "set completeopt=longest,menuone,preview
 "set completeopt=menu,longest
 
  " Limit popup menu height
- set pumheight=10
+ set pumheight=15
 
 "Here is how to emulate Emacs¡¦ transpose-words in Vim
 nmap <silent> gw "_yiw:s/\(\%#\w\+\)\(\_W\+\)\(\w\+\)/\3\2\1/<cr><c-o><c-l>:nohl<cr>
@@ -203,6 +203,8 @@ noremap <C-kMinus> <C-X>
 inoremap <Leader>t <ESC>:AT<CR>
 "for a.vim, normal mode, like tomato operation in vs2008
 nnoremap <Leader>t :AT<CR>
+autocmd FileType objc let g:alternateExtensions_m = "h,H"
+autocmd FileType objc let g:alternateExtensions_h = "m"
 "nnoremap <silent> <A-o> :AT<CR> 
 
 " ============= EnhancedCommentify ===========
@@ -292,6 +294,8 @@ set ambiwidth=double
 
 
 " ============= DelimitMate ============
+"<S-Tab> will jump over a single closing delimiter or quote, <C-G>g will jump
+"over contiguous delimiters and/or quotes.
 au FileType cpp let b:delimitMate_matchpairs = "(:),[:]"
 
 " ============= Python ====================
@@ -358,9 +362,14 @@ endfunction
 
 " ================ Ultisnips ==============
 
-let g:UltiSnipsExpandTrigger=""
+"move it to some unused keybind, we hard-coded it to invoke snips with supertab
+let g:UltiSnipsExpandTrigger="<c-m-p>"
 let g:UltiSnipsJumpForwardTrigger="<tab>"
-"let g:UltiSnipsJumpBackwardTrigger=""
+if has('win32') || has('win64') 
+else
+    let g:UltiSnipsSnippetsDir = "$HOME/.vim"
+endif
+
 
 " ================ Objective-C ==============
 let filetype_m='objc'
@@ -380,6 +389,9 @@ autocmd FileType objc nnoremap <C-M-F8> :!mvim <C-R>=TestFilePath()<CR><CR>
 let g:SuperTabDefaultCompletionType = "context"
 "let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+
+"don't use <s-tab>, may break delimate
+let g:SuperTabMappingBackward = '<s-c-m-space>'
 
 " ================ Clang Complete ================
 " Automatically complete after ., ::, ->
