@@ -416,6 +416,7 @@ let g:clang_user_options='|| exit 0'
 
 let g:clang_use_library = 1
 let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib'
+"let g:clang_library_path = '/Applications/Xcode46-DP3.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib' 
 
 " ================ Neocomplcache ================
 
