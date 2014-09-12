@@ -1,0 +1,293 @@
+snippet ge
+GHAssertEuqals(${1}, ${2}, nil);
+endsnippet
+
+snippet gnn
+GHAssertNotNil(${1}, nil);
+endsnippet
+
+snippet gn
+GHAssertNil(${1}, nil);
+endsnippet
+
+snippet gt
+GHAssertTrue(${1}, nil);
+endsnippet
+
+snippet gf
+GHAssertFalse(${1}, nil);
+endsnippet
+
+snippet ges
+GHAssertEqualStrings(${1}, ${2}, nil);
+endsnippet
+
+snippet ar
+NSArray*${1}
+endsnippet
+
+snippet st
+NSString*${1}
+endsnippet
+
+snippet nsi
+NSInteger${1}
+endsnippet
+
+snippet da
+NSData*${1}
+endsnippet
+
+snippet ma
+NSMutableArray*${1}
+endsnippet
+
+snippet di
+NSDictionary*${1}
+endsnippet
+
+snippet md
+NSMutableDictionary*${1}
+endsnippet
+
+snippet s
+self${0}
+endsnippet
+
+snippet pro
+@property (${1:nonatomic}, ${2:strong}) ${3:id} ${4:var};
+endsnippet
+
+snippet block
+${1:void} (^${2:func})($3:void) = ^($3){
+    ${0}
+}   
+endsnippet
+
+snippet la
+^($1:void){
+    ${0}
+}
+endsnippet
+
+snippet a
+NSAssert( ${1}, @"${2}");
+endsnippet
+
+snippet b
+BOOL${1}
+endsnippet
+
+snippet nn
+!= nil${1}
+endsnippet
+
+snippet ne
+!= ${1}
+endsnippet
+
+snippet e
+== ${1}
+endsnippet
+
+snippet or
+|| ${1}
+endsnippet
+
+snippet and
+&& ${1}
+endsnippet
+
+snippet t
+YES${1}
+endsnippet
+
+snippet f
+NO${1}
+endsnippet
+
+snippet n
+nil${1}
+endsnippet
+
+snippet r
+return ${1};
+endsnippet
+
+snippet fori
+for (NSInteger i = 0; i < ${1:count}; i++) {
+	${2}
+}
+endsnippet
+
+snippet forj
+for (NSInteger j = 0; j < ${1:count}; j++) {
+	${2}
+}
+endsnippet
+
+snippet for
+for (${1:id} ${2:obj} in ${3:$2s}) {
+	${4:$2}
+}
+endsnippet
+
+# Custom For Loop
+snippet forr
+for (${1:i} = ${2:0}; ${3:$1 < 10}; $1${4:++}) {
+	${5:}
+}
+endsnippet
+
+# If Condition
+snippet if
+if (${1:/* condition */}) {
+	${2:}
+}
+endsnippet
+
+snippet el
+else {
+	${1}
+}
+endsnippet
+
+# Tertiary conditional
+snippet te
+${1:/* condition */} ? ${2:a} : ${3:b}
+endsnippet
+
+# Do While Loop
+snippet do
+do {
+	${2:}
+} while (${1:/* condition */});
+endsnippet
+
+snippet wh
+while (${1:/* condition */}) {
+	${2:}
+}
+endsnippet
+
+snippet Imp
+#import <${1:Foundation/Foundation.h}>
+endsnippet
+
+snippet imp
+#import "${1:`!v Filename()`}.h"${0}
+endsnippet
+
+snippet m "Method"
+- (${1:void})${2:method}
+{
+	${3}
+}
+endsnippet
+    
+snippet m1 "Method"
+- (${1:void})${2:method}: (${3:id})${4:arg}
+{
+	${5}
+}
+endsnippet
+
+snippet m2 "Method"
+- (${1:void})${2:method}: (${3:id})${4:arg}
+              ${5:method}: (${6:id})${7:arg}
+{
+	${8}
+}
+endsnippet
+
+snippet M
+- (${1:void})${2:method}: (${3:id})${4:arg};
+endsnippet
+
+
+snippet cm "ClassMethod"
++ (${1:void})${2:method}: (${3:id})${4:arg}
+{
+	${5}
+}
+endsnippet
+snippet icm "InterfaceClassMethod"
++ (${1:void}) ${0:method};
+endsnippet
+
+snippet cl "Class"
+@interface ${1:`Filename()`} : ${2:NSObject}
+{
+}
+@end
+
+@implementation $1
+- (id)init
+{
+    if((self = [super init]))
+    {${0}
+    }
+    return self;
+}
+@end
+endsnippet
+    
+
+snippet cli "ClassInterface"
+@interface ${1:`!v Filename()`} : ${2:NSObject}
+{${3}
+}
+${0}
+@end
+endsnippet
+    
+
+snippet clm "ClassImplementation"
+@implementation ${1:`!v Filename()`}
+- (id)init
+{
+	if((self = [super init]))
+	{${0}
+	}
+	return self;
+}
+@end
+endsnippet
+    
+snippet ut
+#import <GHUnitIOS/GHUnit.h> 
+#import "$1.h"
+@interface $1Test : GHTestCase
+@end
+
+@implementation ${1:`!v TestFile()`}Test
+
+- (BOOL)shouldRunOnMainThread
+{
+    // By default NO, but if you have a UI test or test dependent on running on the main thread return YES.
+    // Also an async test that calls back on the main thread, you'll probably want to return YES.
+    return NO;
+}
+
+- (void)setUpClass {
+    // Run at start of all tests in the class
+
+}
+
+- (void)tearDownClass {
+    // Run at end of all tests in the class
+}
+
+- (void)setUp {
+    // Run before each test method
+
+}
+
+- (void)tearDown {
+    // Run after each test method
+
+}
+
+${0}
+@end
+endsnippet
