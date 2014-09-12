@@ -111,6 +111,9 @@ if !exists(":DiffOrig")
 		  \ | wincmd p | diffthis
 endif
 
+" make background transparent
+set transparency=15
+
 color ayende
 set nu 	"enable line number
 "set autoindent 	"indent
