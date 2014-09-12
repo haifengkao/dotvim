@@ -7,11 +7,13 @@ call vundle#rc()
 
 " let Vundle manage Vundle
 " required! 
+"Bundle 'mattn/emmet-vim'
 Bundle 'gmarik/vundle'
+"Bundle 'Valloric/YouCompleteMe'
 "Bundle 'Shougo/neosnippet'
 Bundle 'BreakPts'
 Bundle 'genutils'
-Bundle 'Rip-Rip/clang_complete'
+"Bundle 'Rip-Rip/clang_complete'
 "Bundle 'osyo-manga/neocomplcache-clang_complete'
 Bundle 'SirVer/ultisnips'
 Bundle 'qqshfox/objc_matchbracket'
@@ -268,8 +270,13 @@ au FileType text set wrap linebreak textwidth=0
 " use Firefox Style browse
 au FileType asciidoc nnoremap <Space> <C-F>
 au FileType asciidoc nnoremap <BS> <C-B>
+
 "asciidoc.py --unsafe --backend=xhtml11 --conf-file=layout1.conf --attribute icons --attribute imagesdir="./images" -v index.txt
 
+
+" ============ HTML ==============
+"let g:user_emmet_expandabbr_key = '<c-e>'
+"let g:use_emmet_complete_tag = 1
 
 " ============= Doxygen ===========
 "with @retval end
