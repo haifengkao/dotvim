@@ -582,6 +582,17 @@ else
         set directory=/tmp,.        " Swap files
         set undodir=/tmp,.
         set guifont=Consolas:h16
+
+        " make MacVim fullscreen
+        "
+        if $TERM_PROGRAM == "Apple_Terminal" " Terminal.app, xterm and urxvt pass this test
+           if $WINDOWID == ""                  " xterm and urxvt don't pass this test
+              "It is unlikely that anything except Terminal.app will get here
+           endif
+        else
+            " not terminal, make it fullscreen
+            set lines=999 columns=9999
+        endif
     "elseif os == 'Linux'
     endif
 endif
