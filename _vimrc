@@ -1,53 +1,60 @@
 " ============= Vundle ===========
+set shell=/bin/bash " Vundle doesn't like oh-my-zsh
+
 set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
+" set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
 
 " let Vundle manage Vundle
 " required! 
-"Bundle 'mattn/emmet-vim'
-Bundle 'gmarik/vundle'
-"Bundle 'Valloric/YouCompleteMe'
-"Bundle 'Shougo/neosnippet'
-Bundle 'BreakPts'
-Bundle 'genutils'
-"Bundle 'Rip-Rip/clang_complete'
-"Bundle 'osyo-manga/neocomplcache-clang_complete'
-Bundle 'SirVer/ultisnips'
-Bundle 'qqshfox/objc_matchbracket'
-Bundle 'lono175/supertab'
-"Bundle 'ervandew/supertab'
+Plugin 'VundleVim/Vundle.vim'
+
+"Plugin 'mattn/emmet-vim'
+Plugin 'gmarik/vundle'
+Plugin 'Valloric/YouCompleteMe'
+"Plugin 'Shougo/neosnippet'
+Plugin 'BreakPts'
+Plugin 'genutils'
+"Plugin 'Rip-Rip/clang_complete'
+"Plugin 'osyo-manga/neocomplcache-clang_complete'
+Plugin 'SirVer/ultisnips'
+Plugin 'qqshfox/objc_matchbracket'
+Plugin 'lono175/supertab'
+"Plugin 'ervandew/supertab'
 
 "Snipmate 
-"Bundle "MarcWeber/vim-addon-mw-utils"
-"Bundle "tomtom/tlib_vim"
-"Bundle "honza/snipmate-snippets"
-"Bundle "garbas/vim-snipmate"
+"Plugin "MarcWeber/vim-addon-mw-utils"
+"Plugin "tomtom/tlib_vim"
+"Plugin "honza/snipmate-snippets"
+"Plugin "garbas/vim-snipmate"
 
-"Bundle 'Shougo/neocomplcache'
+"Plugin 'Shougo/neocomplcache'
 "Use my own fork
-"Bundle 'lono175/neocomplcache'
+"Plugin 'lono175/neocomplcache'
 
  " vim-scripts repos
-Bundle 'FuzzyFinder'
-Bundle 'L9'
-Bundle 'EnhCommentify.vim'
-Bundle 'DoxygenToolkit.vim'
-Bundle 'a.vim'
-Bundle 'delimitMate.vim'
-Bundle 'repeat.vim'
-Bundle 'surround.vim'
+Plugin 'FuzzyFinder'
+Plugin 'L9'
+Plugin 'EnhCommentify.vim'
+Plugin 'DoxygenToolkit.vim'
+Plugin 'a.vim'
+Plugin 'delimitMate.vim'
+Plugin 'repeat.vim'
+Plugin 'surround.vim'
 
+" All of your Plugins must be added before the following line
+call vundle#end()  
 filetype plugin indent on     " required!
 "
 " Brief help
-" :BundleList          - list configured bundles
-" :BundleInstall(!)    - install(update) bundles
-" :BundleSearch(!) foo - search(or refresh cache first) for foo
-" :BundleClean(!)      - confirm(or auto-approve) removal of unused bundles
-"
+" :PluginList       - lists configured plugins
+" :PluginInstall    - installs plugins; append `!` to update or just :PluginUpdate
+" :PluginSearch foo - searches for foo; append `!` to refresh local cache
+" :PluginClean      - confirms removal of unused plugins; append `!` to auto-approve removal
+""
 " see :h vundle for more details or wiki for FAQ
 " NOTE: comments after Bundle command are not allowed..
 
