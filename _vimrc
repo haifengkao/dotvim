@@ -114,7 +114,10 @@ if !exists(":DiffOrig")
 endif
 
 " make background transparent
-set transparency=15
+" not working in console vim
+if has("gui_running")
+    set transparency=15
+endif
 
 color ayende
 set nu 	"enable line number
