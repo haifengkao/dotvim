@@ -1,5 +1,5 @@
 " Vim color file
-" Maintainer: Hai-Feng Kao <KHaiFeng@gmail.com>
+" Maintainer: Hai-Feng Kao <haifeng@cocoaspice.in>
 " Last Change: 2009/06/28
 " Info: based on ayende's visual studio setting 
 " Version: 1.0 
